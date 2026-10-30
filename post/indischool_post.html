@@ -1,0 +1,117 @@
+<title>소수 몬스터 인디스쿨 글</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Do+Hyeon&display=swap">
+<style>
+/* Layout: single centered column that mirrors the forum post; sticky copy bar on top, post preview below */
+:root{
+  --bg:#f6f1e7;--card:#fffdf8;--ink:#2f2a36;--muted:#7a7282;--line:#e4dccd;--accent:#e2604a;--accent-ink:#fffaf0;--ok:#2f8f5a;
+  --f-display:"Do Hyeon","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1f1c24;--card:#2a2630;--ink:#f1ebe2;--muted:#b0a8b8;--line:#3d3744;--accent:#f27a68;--accent-ink:#1f1c24;--ok:#6fd39a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1f1c24;--card:#2a2630;--ink:#f1ebe2;--muted:#b0a8b8;--line:#3d3744;--accent:#f27a68;--accent-ink:#1f1c24;--ok:#6fd39a;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+.bar{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--bg);padding-block:14px 12px;border-bottom:1px solid var(--line);max-width:760px;margin:0 auto}
+.bar h1{font-family:var(--f-display);font-weight:400;font-size:24px;margin:0 0 4px}
+.bar p{margin:0 0 10px;color:var(--muted);font-size:14px;line-height:1.5}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btns button{font-family:var(--f-body);font-size:15px;border-radius:10px;padding:10px 14px;cursor:pointer;border:2px solid var(--ink);background:var(--card);color:var(--ink)}
+.btns button.main{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.btns button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.toast{min-height:20px;margin-top:8px;font-size:14px;color:var(--ok)}
+.post{max-width:760px;margin:18px auto 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px 28px}
+.post .ttl{font-family:var(--f-display);font-weight:400;font-size:22px;line-height:1.4;margin:0 0 16px;padding-bottom:14px;border-bottom:1px dashed var(--line);text-wrap:balance}
+.post .ttl small{display:block;font-family:var(--f-body);font-size:12px;color:var(--muted);margin-bottom:4px;letter-spacing:.04em}
+.body p{font-size:16px;line-height:1.8;margin:0 0 14px;max-width:65ch}
+.body ul{margin:0 0 14px;padding-left:22px;line-height:1.8}
+.body figure{margin:6px 0 20px}
+.body img{display:block;max-width:100%;border-radius:8px;border:1px solid var(--line);image-rendering:pixelated}
+.body img.half{max-width:min(100%,360px)}
+.body figcaption{font-size:12px;color:var(--muted);margin-top:6px}
+.body a{color:var(--accent)}
+#copyArea{position:fixed;left:-9999px;top:0;width:600px}
+@media (max-width:480px){.post{padding:16px}.btns button{flex:1 1 140px}}
+</style>
+
+<div class="bar">
+  <h1>인디스쿨 글 복사</h1>
+  <p>① <b>제목 복사</b> → 인디스쿨 제목 칸에 붙여 넣기 &nbsp;② <b>본문 전체 복사</b> → 본문 칸에 붙여 넣기. 사진까지 같은 순서로 들어가요.</p>
+  <div class="btns">
+    <button type="button" id="copyTitle">제목 복사</button>
+    <button type="button" id="copyBody" class="main">본문 전체 복사 (사진 포함)</button>
+    <button type="button" id="copyText">글자만 복사</button>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<article class="post">
+  <div class="ttl"><small>제목</small><span id="title">소수 몬스터! 🎮 포켓몬 골드버전 감성의 소수 덧셈·뺄셈 게임 (4학년)</span></div>
+  <div class="body" id="body"></div>
+</article>
+<div id="copyArea" aria-hidden="true"></div>
+
+<script>
+const RAW='https://raw.githubusercontent.com/rkdco1213-sudo/sosu-monster/main/post/';
+const URL_GAME='https://rkdco1213-sudo.github.io/sosu-monster/';
+const B=[
+ ['p','안녕하세요 선생님들~'],
+ ['p','4학년 소수 덧셈 뺄셈 연습시키는데 애들이 학습지만 보면 한숨을 쉬길래... 어릴 때 했던 <b>포켓몬스터 골드버전 감성</b>으로, 마을 돌아다니면서 몬스터 잡고 계산 배틀하는 게임을 하나 만들어 봤어요. 풀숲에서 몬스터 튀어나오고, 체육관에서 관장이랑 붙는 그 느낌 그대로요ㅎㅎ 필요하신 분들 편하게 쓰세요!'],
+ ['p',`👉 <a href="${URL_GAME}">${URL_GAME}</a>`],
+ ['img','00_cover.png','게임 화면 모음'],
+ ['p','로그인이나 설치 없이 주소만 열면 바로 돼요. 컴퓨터, 태블릿, 폰 다 되고요.'],
+ ['img','01_title.png','타이틀 화면','half'],
+ ['img','02_select.png','주인공 고르기','half'],
+ ['p','처음에 남자/여자 주인공을 고르면 집에서 출발해요. 엄마가 "소수점끼리 줄 맞춰서 계산해~" 하고 보내 줍니다ㅋㅋ'],
+ ['img','03_home.png','주인공의 집','half'],
+ ['img','04_town.png','소수 마을','half'],
+ ['p','마을 풀숲을 돌아다니면 몬스터가 튀어나와요. 왼쪽 풀숲은 소수 한 자리, 오른쪽 풀숲은 두 자리 문제가 나오고, 연못에서는 낚시도 할 수 있어요. 애들이 낚시를 은근 좋아하더라고요.'],
+ ['img','07_fishing.png','연못 낚시','half'],
+ ['img','05_battle.png','배틀 화면','half'],
+ ['p','배틀은 보기 중에 정답 고르기예요. 빨리 맞힐수록 데미지가 세지고 연속으로 맞히면 보너스도 붙어서, 애들이 은근 경쟁하면서 풀어요.<br>틀린 보기는 애들이 진짜 자주 하는 실수(소수점 안 맞추고 계산, 받아올림 빼먹기)로 넣어 놨어요.'],
+ ['img','06_hint.png','세로셈 힌트','half'],
+ ['p','틀리면 답을 바로 안 알려 주고 소수점 맞춘 세로셈 힌트를 띄워 줘요. 힌트 보고 맞히면 데미지가 반으로 줄어서, 다들 처음부터 제대로 풀려고 하더라고요ㅋㅋ'],
+ ['img','08_gym.png','체육관','half'],
+ ['p','몬스터 4마리를 잡으면 체육관이 열리는데, 트레이너랑 관장은 문제가 꽤 어려워요. 관장은 7 − 3.46 같은 자연수 빼기 소수, 10.03 − 4.58처럼 0을 건너뛰는 받아내림, 빈칸 문제까지 나와서 단원 마무리용으로 괜찮았어요.'],
+ ['img','09_dex.png','도감과 풀이 기록','half'],
+ ['p','도감 버튼 누르면 맞힌 개수, 틀린 개수, 정답률이 나와서 수업 끝날 때 한 번씩 확인하기 좋아요.'],
+ ['img','10_tablet.png','태블릿 화면','half'],
+ ['p','태블릿 쓰실 때 팁 몇 개 남길게요!'],
+ ['ul',['홈 화면에 추가하면 앱처럼 전체 화면으로 열려요. (아이패드는 공유 버튼 → 홈 화면에 추가)','한 번 열어 두면 와이파이 끊겨도 돼요. 수업 전에 미리 한 번씩 열게 해 주세요.',"게임 안 '하는 법'에 QR 코드 버튼이 있어서 칠판에 띄워 놓으면 애들이 바로 찍고 들어와요.",'소리가 나니까 교실에서는 위에 소리 끄기 버튼 눌러 주세요ㅎㅎ','가입이나 개인정보 입력은 전혀 없고, 기록은 각자 태블릿에만 저장돼요.']],
+ ['p','포켓몬 골드버전을 오마주해서 만들었지만, 캐릭터랑 그림은 포켓몬 걸 쓰지 않고 전부 따로 만들거나 무료 공개 자료(Kenney, Tiny Creatures)로 채웠어요. AI 도움도 받았고요.<br>수업에서는 자유롭게 쓰셔도 되는데 판매만 안 해 주시면 감사하겠습니다!'],
+ ['p','써 보시고 버그나 난이도 의견 댓글로 남겨 주시면 계속 고쳐 볼게요. 분수 버전도 만들어 볼까 생각 중이에요 😊']
+];
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function render(forCopy){
+  return B.map(b=>{
+    if(b[0]==='p')return `<p>${b[1]}</p>`;
+    if(b[0]==='ul')return `<ul>${b[1].map(x=>`<li>${x}</li>`).join('')}</ul>`;
+    const src=forCopy?RAW+b[1]:b[1],w=forCopy?(b[3]?' width="480"':' width="720"'):'';
+    return forCopy?`<p><img src="${src}" alt="${b[2]}"${w}></p>`:`<figure><img src="${src}" alt="${b[2]}" class="${b[3]||''}" loading="lazy"><figcaption>${b[2]}</figcaption></figure>`;
+  }).join('\n');
+}
+document.getElementById('body').innerHTML=render(false);
+const plain=()=>B.map(b=>b[0]==='p'?b[1].replace(/<br>/g,'\n').replace(/<[^>]+>/g,''):b[0]==='ul'?b[1].map(x=>'- '+x).join('\n'):`[사진: ${b[2]}]`).join('\n\n');
+const toast=t=>{const el=document.getElementById('toast');el.textContent=t;clearTimeout(toast.t);toast.t=setTimeout(()=>el.textContent='',3500)};
+function selectCopy(html){
+  const a=document.getElementById('copyArea');a.innerHTML=html;
+  const r=document.createRange();r.selectNodeContents(a);const s=getSelection();s.removeAllRanges();s.addRange(r);
+  let ok=false;try{ok=document.execCommand('copy')}catch(e){}
+  s.removeAllRanges();return ok;
+}
+document.getElementById('copyTitle').onclick=()=>{
+  const t=document.getElementById('title').textContent;
+  navigator.clipboard.writeText(t).then(()=>toast('제목을 복사했어요. 인디스쿨 제목 칸에 붙여 넣으세요.'),()=>toast(selectCopy(esc(t))?'제목을 복사했어요.':'복사가 안 됐어요. 제목을 길게 눌러 직접 복사해 주세요.'));
+};
+document.getElementById('copyBody').onclick=()=>{
+  const html=render(true);
+  try{
+    const item=new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain()],{type:'text/plain'})});
+    navigator.clipboard.write([item]).then(()=>toast('본문을 사진까지 복사했어요. 본문 칸에 붙여 넣으세요.'),()=>toast(selectCopy(html)?'본문을 사진까지 복사했어요.':'복사가 안 됐어요. 아래 글을 드래그해서 복사해 주세요.'));
+  }catch(e){toast(selectCopy(html)?'본문을 사진까지 복사했어요.':'복사가 안 됐어요. 아래 글을 드래그해서 복사해 주세요.')}
+};
+document.getElementById('copyText').onclick=()=>{
+  navigator.clipboard.writeText(plain()).then(()=>toast('글자만 복사했어요. [사진] 자리에 사진을 넣어 주세요.'),()=>toast(selectCopy('<pre>'+esc(plain())+'</pre>')?'글자만 복사했어요.':'복사가 안 됐어요.'));
+};
+</script>
